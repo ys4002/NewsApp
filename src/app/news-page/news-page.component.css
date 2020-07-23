@@ -3,7 +3,6 @@
     flex-direction: column;
     position: center;
     justify-content: center;
-    margin-left: 200px;
   }
 
   .check {
@@ -12,7 +11,3 @@
     position: center;
     justify-content: center;
   }
-
-.width {
-  width: 1000px;
-}

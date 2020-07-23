@@ -2,44 +2,66 @@
     <button (click)="login()" class="btn btn-info">Login</button>
 </nav>
 
-<div class="col-md-6 user-container">
+<div class="user-container">
     <h2 style="margin: auto">News</h2>
-    
+
     <div class="check mt-2 ml-3">
-        <label class="ml-1" *ngFor="let cat of category; let i = index">
-            <input type="checkbox" (change)="onFilterChange($event)" [checked]="selected.includes(cat.categoryTitle)" value="{{cat.categoryTitle}}">
+        <label class="ml-4" *ngFor="let cat of category; let i = index">
+            <input type="checkbox" (change)="onFilterChange($event)" [checked]="selected.includes(cat.categoryTitle)"
+                value="{{cat.categoryTitle}}">
             {{cat.categoryTitle}}
         </label>
+    </div>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <div class="table100-head">
+                    <table>
+                        <colgroup>
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="10%">
+                            <col width="45%">
+                            <col width="5%">
+                            <col width="10%">
+                        </colgroup>
+                        <thead>
+                            <tr class="row100 head">
+                                <th class="cell100 column1">Sr. No</th>
+                                <th class="cell100 column2">Title</th>
+                                <th class="cell100 column3">Date</th>
+                                <th class="cell100 column4">Description</th>
+                                <th class="cell100 column5">Clicks</th>
+                                <th class="cell100 column6">Link</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="table100-body">
+                <table>
+                    <colgroup>
+                        <col width="10%">
+                        <col width="20%">
+                        <col width="10%">
+                        <col width="45%">
+                        <col width="5%">
+                        <col width="10%">
+                    </colgroup>
+                        <tbody>
+                            <tr class="row100 body" *ngFor="let news of newsData; index as i;">
+                                <td class="cell100 column1">{{i+1}}</td>
+                                <td class="cell100 column2">{{news.newsTitle}}</td>
+                                <td class="cell100 column3">{{news.newsDate | date : 'short'}}</td>
+                                <td class="cell100 column4">{{news.newsDesc}}</td>
+                                <td class="cell100 column5">{{news.clickCount}}</td>
+                                <td class="cell100 column6"><button class="btn btn-success" (click)="click(news, i)">Click here</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    
-    <table class="table mt-2 table-striped width table-responsive-sm">
-        <colgroup>
-            <col width="10%">
-            <col width="20%">
-            <col width="10%">
-            <col width="45%">
-            <col width="5%">
-            <col width="10%"> 
-            </colgroup>
-        <thead>
-            <tr>
-                <th>Sr. No</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Clicks</th>
-                <th>Link</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let news of newsData; index as i;">
-                <td>{{i+1}}</td>
-                <td>{{news.newsTitle}}</td>
-                <td>{{news.newsDate | date : 'short'}}</td>
-                <td>{{news.newsDesc}}</td>
-                <td>{{news.clickCount}}</td>
-                <td><button class="btn btn-success" (click)="click(news, i)">Click here</button></td>
-              </tr>
-        </tbody>
-    </table>
+    </div>
+    </div>
 </div>
