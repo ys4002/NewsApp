@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { Category } from "../model/category.model";
 import { News } from "../model/news.model";
-import { Observable, interval } from 'rxjs';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import { ApiResponse } from '../model/api.response';
 
 @Component({
   selector: 'app-news-page',
@@ -15,6 +17,8 @@ export class NewsPageComponent implements OnInit {
   category: Category[];
   selected: string[] = [];
   newsData: News[];
+  ws: any;
+  disabled: boolean;
   constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -22,9 +26,10 @@ export class NewsPageComponent implements OnInit {
     // Get all categories from db
     this.apiService.getCategory()
       .subscribe(data => {
-        console.log(data.result);
         this.category = data.result;
       });
+
+      this.connect();
 
     // check local storage for selected category data
     if (JSON.parse(localStorage.getItem("categories")) !== null) {
@@ -35,16 +40,10 @@ export class NewsPageComponent implements OnInit {
         });
     }
 
-    // 5 minutes intervals to update the news array
-    interval(300000).subscribe((x: any) => {
-      this.apiService.getNews(this.selected)
-        .subscribe(data => {
-          this.newsData = data.result;
-        });
-    });
   }
 
   login() {
+    this.disconnect();
     this.router.navigate(['login']);
   }
 
@@ -77,12 +76,47 @@ export class NewsPageComponent implements OnInit {
    * It increases the click count of the news and opens
    * the link in a new tab
   */
-  click(news) {
+  click(news, index) {
+    debugger;
     this.apiService.updateCount(news.id).subscribe(data => {
-      console.log(data.result);
+      this.newsData[index] = data.result;
     });
 
     window.open(news.newsLink, "_blank");
 
   }
+
+  connect() {
+    //connect to stomp where stomp endpoint is exposed
+    let socket = new SockJS("http://localhost:8080/getData");
+    let api: ApiResponse;
+    
+    // let socket = new WebSocket("ws://localhost:8080/getData");
+    this.ws = Stomp.over(socket);
+    let that = this;
+    this.ws.connect({}, function(frame) {
+      that.ws.subscribe("/errors", function(message) {
+        alert("Error " + message.body);
+      });
+
+      that.ws.subscribe("/topic/reply", function(message) {
+        api = JSON.parse(message.body);
+        
+        that.newsData = api.result;
+        
+        
+      });
+      that.disabled = true;
+    }, function(error) {
+      console.log("STOMP error " + error);
+    });
+  }
+
+  disconnect() {
+    if (this.ws != null) {
+      this.ws.ws.close();
+    }
+    console.log("Disconnected");
+  }
+
 }

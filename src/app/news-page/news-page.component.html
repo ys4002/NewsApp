@@ -4,18 +4,21 @@
 
 <div class="col-md-6 user-container">
     <h2 style="margin: auto">News</h2>
-    <label *ngFor="let cat of category; let i = index">
-        <input type="checkbox" (change)="onFilterChange($event)" [checked]="selected.includes(cat.categoryTitle)" value="{{cat.categoryTitle}}">
-        {{cat.categoryTitle}}
-    </label>
-    <hr>
-<div *ngIf="true">
-    <table class="table table-striped width table-responsive-sm">
+    
+    <div class="check mt-2 ml-3">
+        <label class="ml-1" *ngFor="let cat of category; let i = index">
+            <input type="checkbox" (change)="onFilterChange($event)" [checked]="selected.includes(cat.categoryTitle)" value="{{cat.categoryTitle}}">
+            {{cat.categoryTitle}}
+        </label>
+        </div>
+    
+    <table class="table mt-2 table-striped width table-responsive-sm">
         <colgroup>
             <col width="10%">
             <col width="20%">
             <col width="10%">
-            <col width="50%">
+            <col width="45%">
+            <col width="5%">
             <col width="10%"> 
             </colgroup>
         <thead>
@@ -24,6 +27,7 @@
                 <th>Title</th>
                 <th>Date</th>
                 <th>Description</th>
+                <th>Clicks</th>
                 <th>Link</th>
             </tr>
         </thead>
@@ -33,9 +37,9 @@
                 <td>{{news.newsTitle}}</td>
                 <td>{{news.newsDate | date : 'short'}}</td>
                 <td>{{news.newsDesc}}</td>
-                <td><button class="btn btn-success" (click)="click(news)">Click here</button></td>
+                <td>{{news.clickCount}}</td>
+                <td><button class="btn btn-success" (click)="click(news, i)">Click here</button></td>
               </tr>
         </tbody>
     </table>
-    </div>
 </div>

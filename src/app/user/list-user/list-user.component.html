@@ -8,7 +8,7 @@
 <div class="col-md-6 user-container">
   <h2 style="margin: auto"> Agency/Feed Details</h2>
   <hr>
-  <form [formGroup]="newsForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="newsForm" >
     <button class="btn btn-success" style="width:100px" (click)="addItem()"> Add Item</button>
     <button class="btn btn-info ml-2" (click)="report()">Download Report</button>
     <table class="table table-striped">
@@ -38,6 +38,6 @@
       </tbody>
     </table>
 
-    <button class="btn btn-primary" [disabled]="!newsForm.valid" type="submit">Send Data</button>
+    <button class="btn btn-primary" [disabled]="!newsForm.valid" (click)="onSubmit()" type="submit">Send Data</button>
   </form>
 </div>

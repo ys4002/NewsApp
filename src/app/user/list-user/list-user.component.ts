@@ -92,7 +92,9 @@ export class ListUserComponent implements OnInit {
       },
         error => errorLogin(this.router));
 
-        location.reload();
+        this.newsForm = this.fb.group({
+          items: this.fb.array([this.createItem()])
+        });
   }
 
   /**

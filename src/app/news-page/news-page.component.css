@@ -6,6 +6,13 @@
     margin-left: 200px;
   }
 
+  .check {
+    display: flex;
+    flex-direction: row;
+    position: center;
+    justify-content: center;
+  }
+
 .width {
   width: 1000px;
 }
