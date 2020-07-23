@@ -8,7 +8,7 @@ The application has following features:
     -Download Report -> downloads a pdf file with news title, click count and category info
 4. /news-page:
     -Displays all the categories
-    -When the categories are selected News table is populated
+    -When the categories are selected News table is populated (news is refreshed every 5 mins)
     -Table data is dynamic and changes as one moves through the categories
     -After selecting the categories the data is persisted even if the page is refreshed
     -Click here -> this button opens the news link is a new tab and incerases the click count
@@ -16,3 +16,9 @@ The application has following features:
 6. Interceptor is implemented to send token as header with each request
 7. Custom password validators are implemented to match the passwords
 8. jsPDF library used to generate the report pdf
+
+Clone the project
+install Install the Angular CLI
+Open project in Visual Code Studio
+Navigate to project folder in terminal
+"ng serve" to run the project

@@ -10,7 +10,12 @@
       
       <div class="form-group">
         <label for="username">User Name:</label>
-        <input type="text" formControlName="username" placeholder="username" name="username" class="form-control" id="username">
+        <input type="text" formControlName="username"  [class.is-invalid]="username.invalid && username.touched" placeholder="username" name="username" class="form-control" id="username">
+        <div *ngIf="username.invalid && username.touched">
+          <small *ngIf="username.errors?.email" class="text-danger">Username cannot be {{username.errors?.email.value}}</small>
+          <small *ngIf="username.errors?.required" class="text-danger">Username is required</small>
+          
+      </div>
       </div>
   
       <div class="form-group">
@@ -34,7 +39,7 @@
         <input formControlName="lastName" placeholder="Last name" name="lastName" class="form-control" id="lastName">
       </div>
   
-      <button class="btn btn-success">Add</button>
+      <button class="btn btn-success" [disabled]="addForm.invalid">Add</button>
     </form>
   </div>
   

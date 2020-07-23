@@ -91,6 +91,10 @@ export class ListUserComponent implements OnInit {
         this.router.navigate(['list-user']);
       },
         error => errorLogin(this.router));
+
+        this.newsForm = this.fb.group({
+          items: this.fb.array([this.createItem()])
+        });
   }
 
   /**

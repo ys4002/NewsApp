@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { Category } from "../model/category.model";
 import { News } from "../model/news.model";
+import { Observable, interval } from 'rxjs';
 
 @Component({
   selector: 'app-news-page',
@@ -33,6 +34,14 @@ export class NewsPageComponent implements OnInit {
           this.newsData = data.result;
         });
     }
+
+    // 5 minutes intervals to update the news array
+    interval(300000).subscribe((x: any) => {
+      this.apiService.getNews(this.selected)
+        .subscribe(data => {
+          this.newsData = data.result;
+        });
+    });
   }
 
   login() {

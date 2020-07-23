@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { passwordValidator } from '../shared/password.validator';
+import { emailValidator } from '../shared/email.validator';
 
 @Component({
   selector: 'app-registration',
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       id: [],
-      username: ['', Validators.required],
+      username: ['', [Validators.required, emailValidator]],
       tempPass: ['', Validators.required],
       confirmPass: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -45,6 +46,10 @@ export class RegistrationComponent implements OnInit {
    */
   login() {
     this.router.navigate(['login']);
+  }
+
+  get username(){
+    return this.addForm.get('username');
   }
 
 

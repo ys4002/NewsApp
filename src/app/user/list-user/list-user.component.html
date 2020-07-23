@@ -21,22 +21,20 @@
         </tr>
       </thead>
       <tbody>
-          <div formArrayName="items" *ngFor="let item of getItem.controls; let i = index;">
-            <tr [formGroupName]="i">
-              <td>
+            <tr formArrayName="items" *ngFor="let item of getItem.controls; let i = index;">
+              <td [formGroupName]="i">
                 <input class="form-control" type="text" formControlName="agency" placeholder="Agency Name">
               </td>
-              <td>
-                <input class="form-control" type="text" formControlName="category" placeholder="Catogory">
+              <td [formGroupName]="i">
+                <input class="form-control" type="text" formControlName="category" placeholder="Category">
               </td>
-              <td>
+              <td [formGroupName]="i">
                 <input class="form-control" type="text" formControlName="url" placeholder="URL">
               </td>
               <td>
                 <button [disabled]="checkIndex(i)" (click)="removeRow(i)" class="btn btn-danger">Delete</button>
               </td>
             </tr>
-          </div>
       </tbody>
     </table>
 
