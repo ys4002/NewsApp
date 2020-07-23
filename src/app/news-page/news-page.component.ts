@@ -87,11 +87,9 @@ export class NewsPageComponent implements OnInit {
   }
 
   connect() {
-    //connect to stomp where stomp endpoint is exposed
     let socket = new SockJS("http://localhost:8080/getData");
     let api: ApiResponse;
     
-    // let socket = new WebSocket("ws://localhost:8080/getData");
     this.ws = Stomp.over(socket);
     let that = this;
     this.ws.connect({}, function(frame) {
@@ -103,7 +101,6 @@ export class NewsPageComponent implements OnInit {
         api = JSON.parse(message.body);
         
         that.newsData = api.result;
-        
         
       });
       that.disabled = true;
