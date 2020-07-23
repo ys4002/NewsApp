@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button (click)="login()" class="btn btn-info">Login</button>
+</nav>
+
+<div class="col-md-6 user-container">
+    <h2 style="margin: auto">News</h2>
+    <label *ngFor="let cat of category; let i = index">
+        <input type="checkbox" (change)="onFilterChange($event)" [checked]="selected.includes(cat.categoryTitle)" value="{{cat.categoryTitle}}">
+        {{cat.categoryTitle}}
+    </label>
+    <hr>
+<div *ngIf="true">
+    <table class="table table-striped width table-responsive-sm">
+        <colgroup>
+            <col width="10%">
+            <col width="20%">
+            <col width="10%">
+            <col width="50%">
+            <col width="10%"> 
+            </colgroup>
+        <thead>
+            <tr>
+                <th>Sr. No</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let news of newsData; index as i;">
+                <td>{{i+1}}</td>
+                <td>{{news.newsTitle}}</td>
+                <td>{{news.newsDate | date : 'short'}}</td>
+                <td>{{news.newsDesc}}</td>
+                <td><button class="btn btn-success" (click)="click(news)">Click here</button></td>
+              </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

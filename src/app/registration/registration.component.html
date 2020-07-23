@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button (click)="login()" class="btn btn-success">Login</button>
+  </nav>
+  
+  
+  <div class="col-md-6 mb-2 user-container">
+    <h2 class="text-center">Add User</h2>
+    
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="username">User Name:</label>
+        <input type="text" formControlName="username" placeholder="username" name="username" class="form-control" id="username">
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" formControlName="tempPass" placeholder="password" name="tempPass" class="form-control" id="tempPass">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Confirm Password:</label>
+        <input type="password" [class.is-invalid]="addForm.errors?.mismatch" formControlName="confirmPass" placeholder="password"  class="form-control">
+        <small class="text-danger" *ngIf="addForm.errors?.mismatch">Password do not match</small>
+      </div>
+  
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input formControlName="firstName" placeholder="First Name" name="firstName" class="form-control" id="firstName">
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input formControlName="lastName" placeholder="Last name" name="lastName" class="form-control" id="lastName">
+      </div>
+  
+      <button class="btn btn-success">Add</button>
+    </form>
+  </div>
+  
